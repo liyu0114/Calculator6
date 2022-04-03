@@ -17,6 +17,7 @@
 		6079990427F9DE9A000C2085 /* Calculator6Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6079990327F9DE9A000C2085 /* Calculator6Tests.swift */; };
 		6079990E27F9DE9A000C2085 /* Calculator6UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6079990D27F9DE9A000C2085 /* Calculator6UITests.swift */; };
 		6079991027F9DE9A000C2085 /* Calculator6UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6079990F27F9DE9A000C2085 /* Calculator6UITestsLaunchTests.swift */; };
+		60C35E9627F9DF9C00CA0458 /* CalculatorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C35E9527F9DF9C00CA0458 /* CalculatorBrain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		6079990927F9DE9A000C2085 /* Calculator6UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Calculator6UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6079990D27F9DE9A000C2085 /* Calculator6UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculator6UITests.swift; sourceTree = "<group>"; };
 		6079990F27F9DE9A000C2085 /* Calculator6UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculator6UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		60C35E9527F9DF9C00CA0458 /* CalculatorBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculatorBrain.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				607998EB27F9DE99000C2085 /* SceneDelegate.swift */,
 				607998ED27F9DE99000C2085 /* ViewController.swift */,
 				607998EF27F9DE99000C2085 /* Main.storyboard */,
+				60C35E9527F9DF9C00CA0458 /* CalculatorBrain.swift */,
 				607998F527F9DE99000C2085 /* Assets.xcassets */,
 				607998F727F9DE99000C2085 /* LaunchScreen.storyboard */,
 				607998FA27F9DE99000C2085 /* Info.plist */,
@@ -264,6 +267,7 @@
 				607998F427F9DE99000C2085 /* Calculator6.xcdatamodeld in Sources */,
 				607998EE27F9DE99000C2085 /* ViewController.swift in Sources */,
 				607998EA27F9DE99000C2085 /* AppDelegate.swift in Sources */,
+				60C35E9627F9DF9C00CA0458 /* CalculatorBrain.swift in Sources */,
 				607998EC27F9DE99000C2085 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
