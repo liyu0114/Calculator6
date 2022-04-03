@@ -244,7 +244,7 @@ struct CalculatorBrain {
         "tanh": Operation.unaryOperation(tanh),
         
         "exp": Operation.unaryOperation(exp),
-        "√": Operation.unaryOperation(sqrt),
+        "sqrt": Operation.unaryOperation(sqrt),
         "log": Operation.unaryOperation(log),
         "log10": Operation.unaryOperation(log10),
         
@@ -262,8 +262,8 @@ struct CalculatorBrain {
         
         
         "%": Operation.binaryOperation({ ($0 / $1) * 100 }),
-        "×": Operation.binaryOperation({ $0 * $1 }),
-        "÷": Operation.binaryOperation({ $0 / $1 }),
+        "*": Operation.binaryOperation({ $0 * $1 }),
+        "/": Operation.binaryOperation({ $0 / $1 }),
         "+": Operation.binaryOperation({ $0 + $1 }),
         "-": Operation.binaryOperation({ $0 - $1 }),
         
