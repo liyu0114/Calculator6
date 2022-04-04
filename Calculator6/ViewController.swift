@@ -7,17 +7,31 @@
 
 import UIKit
 
+
+
 class ViewController: UIViewController {
-/*
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        tableView.register(UITableViewCell.self,
+         forCellReuseIdentifier: "Cell")
+        tableView.isHidden = true
     }
-*/
     
-  
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
+       
+        //1
+        guard let appDelegate =
+                UIApplication.shared.delegate as? AppDelegate else {
+                    return
+                }
+        brain.fetchHistory(appDelegate: appDelegate)
+    }
     
-
     
     
     @IBOutlet weak var displayFormular: UILabel!
@@ -27,7 +41,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var display: UILabel!
     
     
-    
+    @IBOutlet weak var tableView: UITableView!
     
     
     
@@ -68,11 +82,18 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var showOrHideTableButton: UIButton!
     
     
-    @IBAction func writeOperandToFile(_ sender: UIButton) {
-        
-        brain.writeOperationDictionary()
+    
+    @IBAction func showOrHideTable(_ sender: UIButton) {
+        if tableView.isHidden == true {
+            tableView.isHidden = false
+            showOrHideTableButton.setTitle("Hide Table", for: .normal)
+        } else {
+            tableView.isHidden = true
+            showOrHideTableButton.setTitle("Show Table", for: .normal)
+        }
     }
     
     
@@ -196,11 +217,24 @@ class ViewController: UIViewController {
     
     
     @IBAction func storeHistory(_ sender: UIButton) {
-        brain.queueMemory.append( formular: brain.queue.getFormularAtIndex(), resultString: brain.queue.getResultAtIndex() )
         
-        memoryButton.setTitle(brain.queue.getFormularAtIndex(), for: UIControl.State.normal)
+        let formular =  brain.queue.getFormularAtIndex()
+        let result = brain.queue.getResultAtIndex()
+        brain.queueMemory.append( formular: formular, resultString: result  )
+        guard let appDelegate =
+                UIApplication.shared.delegate as? AppDelegate else {
+                    return
+                }
+        brain.persistentHistorySave(appDelegate: appDelegate, formular: formular, result: result)
+        
+       // memoryButton.setTitle(brain.queue.getFormularAtIndex(), for: UIControl.State.normal)
+        memoryButton.setTitle(formular, for: UIControl.State.normal)
         let i = brain.queueMemory.getIndex()
         changeMemory.setTitle( "\(i)↓", for: UIControl.State.normal)
+        self.tableView.reloadData()
+        
+        
+        
         print("memory result"+brain.queueMemory.getResultAtIndex())
     }
     
@@ -218,6 +252,18 @@ class ViewController: UIViewController {
             }
         }
     }
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -320,8 +366,35 @@ class ViewController: UIViewController {
 
 
 
+// MARK: - UITableViewDataSource
+extension ViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int {
+        //return brain.queueMemory.count()
+        //return names.count
+        return brain.persistentHistorys.count
+    }
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath)
+    -> UITableViewCell {
+        let cell =
+        tableView.dequeueReusableCell(withIdentifier: "Cell",
+                                      for: indexPath)
+        //cell.textLabel?.text = names[indexPath.row]
+       // cell.textLabel?.text =
+        //brain.queueMemory.getFormular(at: indexPath.row)
+        
+        
+        cell.textLabel?.text =
+        brain.persistentHistory(indexAt: indexPath.row)
+        //print("\(indexPath.row)")
+        return cell
+    }
 
 
+
+
+}
 
 
 

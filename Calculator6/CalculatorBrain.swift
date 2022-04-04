@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import CoreData
 /*
 func changeSign(operand: Double ) -> Double
 {
@@ -129,6 +129,10 @@ struct CalculatorBrain {
                 index = index - 1
             }
             return index
+        }
+        
+        func count() -> Int {
+            return formulars.count
         }
         
         func getIndex() -> Int {
@@ -278,6 +282,8 @@ struct CalculatorBrain {
     
     
     
+    
+    /*
     func writeOperationDictionary( ){
         let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
             let fileName = "OperDictionary"
@@ -303,7 +309,7 @@ struct CalculatorBrain {
     }
     
     
-    
+  */
     
     mutating func performOperation (_ symbol:String) {
         //if !canNOTPressOperation {
@@ -475,4 +481,74 @@ struct CalculatorBrain {
     }
     
     var formularFinished = false
+    
+    
+    
+    
+    
+    
+    ///Mark Core Data
+    ///
+    ///
+
+
+    var persistentHistorys: [NSManagedObject] = []
+    
+    func persistentHistory (indexAt index: Int ) -> String {
+        let persistentFormularHistory = persistentHistorys[index].value(forKey: "formular") as! String
+        let persistentResultHistory = persistentHistorys[index].value(forKey: "result") as! String
+       
+        return "\( persistentFormularHistory)" + " = " + "\(persistentResultHistory)"
+        
+    }
+    
+    mutating func fetchHistory( appDelegate: AppDelegate  ) {
+        let managedContext =
+        appDelegate.persistentContainer.viewContext
+        //2
+        let fetchRequest =
+        NSFetchRequest<NSManagedObject>(entityName: "History")
+        
+        //3
+        do {
+            persistentHistorys = try managedContext.fetch(fetchRequest)
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        
+        
+        
+    }
+    
+    
+    mutating func persistentHistorySave(appDelegate:AppDelegate, formular: String, result: String) {
+     
+        let managedContext =
+        appDelegate.persistentContainer.viewContext
+        // 2
+        let entity =
+        NSEntityDescription.entity(forEntityName: "History",
+                                   in: managedContext)!
+        let persisttentHistoryRow = NSManagedObject(entity: entity,
+                                     insertInto: managedContext)
+        // 3
+        persisttentHistoryRow.setValue(formular, forKeyPath: "formular")
+   
+        persisttentHistoryRow.setValue(result, forKeyPath: "result")
+        // 4
+        do {
+            try managedContext.save()
+            persistentHistorys.append(persisttentHistoryRow)
+           
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+    
 }
+
+
+
+
+
+
