@@ -210,6 +210,9 @@ struct CalculatorBrain {
     var queueMemory = QueueMemory()
     
     
+
+    
+    
     
     private var operandNO =  0
     
@@ -257,9 +260,9 @@ struct CalculatorBrain {
         
         "fabs": Operation.unaryOperation(fabs),
         
-
+        //负号
         
-        "±": Operation.unaryOperation({ -$0 }),
+        "neg": Operation.unaryOperation({ -$0 }),
         
         
         
@@ -497,8 +500,16 @@ struct CalculatorBrain {
     func persistentHistory (indexAt index: Int ) -> String {
         let persistentFormularHistory = persistentHistorys[index].value(forKey: "formular") as! String
         let persistentResultHistory = persistentHistorys[index].value(forKey: "result") as! String
-       
-        return "\( persistentFormularHistory)" + " = " + "\(persistentResultHistory)"
+        
+        //时间
+        let persistentTimeStampHistory = persistentHistorys[index].value(forKey: "timeStamp") as? Date
+        let timeFormatter = DateFormatter()
+        //日期显示格式，可按自己需求显示
+        timeFormatter.dateFormat = "yyy-MM-dd' at 'HH:mm:ss.SSS"
+        let strTimeStamp = timeFormatter.string(from: persistentTimeStampHistory ?? Date())
+        
+        
+        return "\( persistentFormularHistory)" + " = " + "\(persistentResultHistory)" + "  -> " + "\(strTimeStamp)"
         
     }
     
@@ -531,10 +542,16 @@ struct CalculatorBrain {
                                    in: managedContext)!
         let persisttentHistoryRow = NSManagedObject(entity: entity,
                                      insertInto: managedContext)
+        
+        
         // 3
+        
+        let timeStamp = Date()
         persisttentHistoryRow.setValue(formular, forKeyPath: "formular")
    
         persisttentHistoryRow.setValue(result, forKeyPath: "result")
+        
+        persisttentHistoryRow.setValue(timeStamp, forKey: "timeStamp")
         // 4
         do {
             try managedContext.save()
@@ -544,6 +561,31 @@ struct CalculatorBrain {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
+    
+    
+    
+    mutating func persistentHistoryToQueueMemory() {
+        let persistentHistoryCount = persistentHistorys.count
+        let queueMemoryCount = queueMemory.count()
+        var i = 0
+        if  persistentHistoryCount > queueMemoryCount {
+            i = queueMemoryCount
+            
+        }else {
+            i = persistentHistoryCount
+        }
+        if i > 0 {
+          
+                
+            for j in (0...i-1).reversed() {
+                let index = persistentHistoryCount - j - 1
+                let persistentFormularHistory = persistentHistorys[index].value(forKey: "formular") as! String
+                let persistentResultHistory = persistentHistorys[index].value(forKey: "result") as! String
+                queueMemory.append(formular: persistentFormularHistory, resultString: persistentResultHistory)
+            }
+        }
+    }
+    
     
 }
 

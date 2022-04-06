@@ -286,7 +286,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APk-2U-dP5">
-                                <rect key="frame" x="14" y="163" width="70" height="137"/>
+                                <rect key="frame" x="14" y="163" width="70" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemGray4Color"/>
                                 <state key="normal" title="Button"/>
@@ -331,6 +331,16 @@
                                 <buttonConfiguration key="configuration" style="plain" title="9↓"/>
                                 <connections>
                                     <action selector="changeMemoryPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7AZ-Z2-PPS"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uHk-jE-NRz">
+                                <rect key="frame" x="14" y="235" width="70" height="64"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Data Form Table"/>
+                                <connections>
+                                    <action selector="dataFromTable:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qOf-c0-smB"/>
                                 </connections>
                             </button>
                         </subviews>

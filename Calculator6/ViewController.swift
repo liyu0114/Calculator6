@@ -7,7 +7,9 @@
 
 import UIKit
 
-
+//还少个删除键
+//还少对表格的操作
+//按加号后再按C键有问题
 
 class ViewController: UIViewController {
 
@@ -16,6 +18,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         tableView.register(UITableViewCell.self,
          forCellReuseIdentifier: "Cell")
+        //tableView.transform = CGAffineTransform (scaleX: 1,y: -1)
+        
         tableView.isHidden = true
     }
     
@@ -30,6 +34,10 @@ class ViewController: UIViewController {
                     return
                 }
         brain.fetchHistory(appDelegate: appDelegate)
+       
+        
+        //Mark change button's title
+        fromPersistentHistoryToMemoryQueue()
     }
     
     
@@ -51,6 +59,19 @@ class ViewController: UIViewController {
 
     private var brain = CalculatorBrain()
 
+    
+    
+    @IBAction func dataFromTable(_ sender: UIButton) {
+        fromPersistentHistoryToMemoryQueue()
+    }
+    
+    
+    func fromPersistentHistoryToMemoryQueue () {
+        brain.persistentHistoryToQueueMemory()
+        let i = brain.queueMemory.count()-1
+        memoryButton.setTitle(brain.queueMemory.getFormular(at:i ), for: UIControl.State.normal)
+        changeMemory.setTitle( "\(i)↓", for: UIControl.State.normal)
+    }
         
     @IBAction func digitPressed(_ sender: UIButton) {
         let digit = sender.currentTitle!
@@ -238,6 +259,9 @@ class ViewController: UIViewController {
         print("memory result"+brain.queueMemory.getResultAtIndex())
     }
     
+    
+    
+ 
     @IBOutlet weak var memoryButton: UIButton!
     
     
@@ -383,11 +407,12 @@ extension ViewController: UITableViewDataSource {
         //cell.textLabel?.text = names[indexPath.row]
        // cell.textLabel?.text =
         //brain.queueMemory.getFormular(at: indexPath.row)
-        
+        let count = brain.persistentHistorys.count
         
         cell.textLabel?.text =
-        brain.persistentHistory(indexAt: indexPath.row)
+        brain.persistentHistory(indexAt: count - 1 - indexPath.row)
         //print("\(indexPath.row)")
+        //cell.contentView.transform = CGAffineTransform (scaleX: 1,y: -1);
         return cell
     }
 
