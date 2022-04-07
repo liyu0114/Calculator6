@@ -44,14 +44,14 @@ struct CalculatorBrain {
     var temperaryFormular = ""
     struct Queue {
         private var long = 0
-        private var index = 2
-        private var formulars = ["","",""]
-        private var resultStrings = ["","",""]
+        private var index = 99
+        private var formulars = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""]
+        private var resultStrings = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""]
         
       
         mutating func nextIndex() -> Int {
             if index == 0 {
-                index = 2
+                index = 99
             } else {
                 index = index - 1
             }
@@ -90,6 +90,7 @@ struct CalculatorBrain {
         }
             
         mutating func append( formular : String, resultString : String) {
+            /*
             //formulars.append(formular)
             //formulars.remove(at: 0)
             formulars[0] = formulars[1]
@@ -100,14 +101,29 @@ struct CalculatorBrain {
             resultStrings[2] = resultString
             //resultStrings.append(resultString)
             //resultStrings.remove(at: 0)
-            index = 2
+             */
+            for i in (0...99) {
+                if i != 99 {
+                    formulars[i] = formulars[i+1]
+                    resultStrings[i] = resultStrings[i+1]
+                } else {
+                    formulars[i] = formular
+                    resultStrings[i] = resultString
+                }
+            }
+            index = 99
         }
         
         mutating func clear() {
             long = 0
-            index = 2
-            formulars = ["","",""]
-            resultStrings = ["","",""]
+            index = 99
+            //formulars = ["","",""]
+            //resultStrings = ["","",""]
+            for i in (0...99 ){
+                formulars[i] = ""
+                resultStrings[i] = ""
+                
+            }
         }
         
     }
@@ -116,15 +132,32 @@ struct CalculatorBrain {
     
  
     struct QueueMemory {
-        private var long = 0
-        private var index = 9
-        private var formulars = ["","","","","","","","","",""]
-        private var resultStrings = ["","","","","","","","","",""]
         
+        private var howManyElement = 20
+        private var long = 0
+        private var index = 19
+        
+       
+       //缺数组赋初值如何用howManyElement来调整
+        private var formulars = ["","","","","","","","","","","","","","","","","","","",""]
+       
+        
+        private var resultStrings = ["","","","","","","","","","","","","","","","","","","",""]
+       
       
+        
+        init(howMany: Int) {
+            howManyElement = howMany
+            index = howManyElement - 1
+            for i in (0...howManyElement - 1 ) {
+                formulars[i] = ""
+                resultStrings[i] = ""
+            }
+        }
+        
         mutating func nextIndex() -> Int {
             if index == 0 {
-                index = 9
+                index = howManyElement - 1
             } else {
                 index = index - 1
             }
@@ -169,6 +202,9 @@ struct CalculatorBrain {
         mutating func append( formular : String, resultString : String) {
             //formulars.append(formular)
             //formulars.remove(at: 0)
+            
+            //用for 循环代替
+            /*
             formulars[0] = formulars[1]
             formulars[1] = formulars[2]
             formulars[2] = formulars[3]
@@ -179,9 +215,19 @@ struct CalculatorBrain {
             formulars[7] = formulars[8]
             formulars[8] = formulars[9]
             formulars[9] = formular
-            
-            
-            
+            */
+            /*
+            for i in (0...howManyElement - 1) {
+                if i != (howManyElement - 1) {
+                    formulars[i] = formulars[i+1]
+                } else {
+                    formulars[i] = formular
+                }
+            }
+            */
+            //用for 循环代替
+            /*
+           
             resultStrings[0] = resultStrings[1]
             resultStrings[1] = resultStrings[2]
             resultStrings[2] = resultStrings[3]
@@ -194,20 +240,38 @@ struct CalculatorBrain {
             resultStrings[9] = resultString
             //resultStrings.append(resultString)
             //resultStrings.remove(at: 0)
-            index = 9
+             */
+            for i in (0...howManyElement - 1) {
+                if i != (howManyElement - 1) {
+                    formulars[i] = formulars[i+1]
+                    resultStrings[i] = resultStrings[i+1]
+                } else {
+                    formulars[i] = formular
+                    resultStrings[i] = resultString
+                }
+            }
+            index = howManyElement - 1
         }
         
         mutating func clear() {
             long = 0
-            index = 9
+            index = howManyElement - 1
+            for i in (0...howManyElement - 1 ){
+                formulars[i] = ""
+                resultStrings[i] = ""
+                
+            }
+            /*
             formulars = ["","","","","","","","","",""]
             resultStrings = ["","","","","","","","","",""]
+             */
         }
         
     }
-    
-    
-    var queueMemory = QueueMemory()
+
+  
+    //var queueMemory = QueueMemory()
+    var queueMemory = QueueMemory.init(howMany: 20)
     
     
 
@@ -464,6 +528,7 @@ struct CalculatorBrain {
         accumulator = 0
         accumulatorString = ""
         history = ""
+        temperaryFormular = ""
         //queue.clear()
         operandNO = 0
     }

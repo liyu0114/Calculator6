@@ -198,7 +198,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title=" 二目"/>
+                                <buttonConfiguration key="configuration" style="plain" title="2 operand"/>
                                 <connections>
                                     <action selector="cahngeTwoOperandSymbolButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Sed-wg-cf6"/>
                                 </connections>
@@ -254,7 +254,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title=" 一目"/>
+                                <buttonConfiguration key="configuration" style="plain" title="1 operand"/>
                                 <connections>
                                     <action selector="changedOneOperandSymbolButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vmP-aX-0Ec"/>
                                 </connections>
@@ -318,7 +318,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemGray4Color"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="2↓"/>
+                                <buttonConfiguration key="configuration" style="plain" title="99↓"/>
                                 <connections>
                                     <action selector="changeHistoryButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rZ3-lh-jYb"/>
                                 </connections>
@@ -328,7 +328,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemGray2Color"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="9↓"/>
+                                <buttonConfiguration key="configuration" style="plain" title="19↓"/>
                                 <connections>
                                     <action selector="changeMemoryPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7AZ-Z2-PPS"/>
                                 </connections>

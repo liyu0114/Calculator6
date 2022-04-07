@@ -9,7 +9,7 @@ import UIKit
 
 //还少个删除键
 //还少对表格的操作
-//按加号后再按C键有问题
+
 
 class ViewController: UIViewController {
 
