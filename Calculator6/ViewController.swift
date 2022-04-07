@@ -7,7 +7,7 @@
 
 import UIKit
 
-//还少个删除键
+
 //还少对表格的操作
 
 
@@ -91,6 +91,27 @@ class ViewController: UIViewController {
         }
         //isInTheMiddleOfTwoOperandCoputing = false
         theLastButtonEffectivePressed = "digit"
+    }
+    
+    
+    
+    @IBAction func deleteButton(_ sender: UIButton) {
+        if isInTheMiddleOfTyping {
+            //如果已在输入数字中，则将字符串的最后一个字符删除，如果不是，则不用管
+            var temperaryStr: String
+            
+            temperaryStr = display.text!
+            temperaryStr.removeLast()
+            if temperaryStr.count == 0 {
+                display.text = "0"
+                isInTheMiddleOfTyping = false
+            }else {
+                display.text = temperaryStr
+            }
+            
+            theLastButtonEffectivePressed = "digit"
+        }
+        
     }
     
     
