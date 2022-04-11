@@ -9,7 +9,7 @@ import UIKit
 
 
 //还少对表格的操作
-
+//还少界面适应屏幕设置
 
 class ViewController: UIViewController {
 
@@ -60,10 +60,13 @@ class ViewController: UIViewController {
     private var brain = CalculatorBrain()
 
     
-    
-    @IBAction func dataFromTable(_ sender: UIButton) {
+/*
+ 
+ @IBAction func dataFromTable(_ sender: UIButton) {
         fromPersistentHistoryToMemoryQueue()
     }
+
+*/
     
     
     func fromPersistentHistoryToMemoryQueue () {
@@ -72,7 +75,12 @@ class ViewController: UIViewController {
         memoryButton.setTitle(brain.queueMemory.getFormular(at:i ), for: UIControl.State.normal)
         changeMemory.setTitle( "\(i)↓", for: UIControl.State.normal)
     }
-        
+
+ 
+ 
+    
+    
+    
     @IBAction func digitPressed(_ sender: UIButton) {
         let digit = sender.currentTitle!
  
@@ -258,26 +266,51 @@ class ViewController: UIViewController {
     
     
     
+    
+    
+    
     @IBAction func storeHistory(_ sender: UIButton) {
         
-        let formular =  brain.queue.getFormularAtIndex()
-        let result = brain.queue.getResultAtIndex()
-        brain.queueMemory.append( formular: formular, resultString: result  )
+       
         guard let appDelegate =
                 UIApplication.shared.delegate as? AppDelegate else {
                     return
                 }
-        brain.persistentHistorySave(appDelegate: appDelegate, formular: formular, result: result)
+        
+        
+        if ( brain.storeHistory(appDelegate: appDelegate) ) {
+            memoryButton.setTitle(brain.queue.getFormularAtIndex(), for: UIControl.State.normal)
+            //memoryButton.setTitle(formular, for: UIControl.State.normal)
+            let i = brain.queueMemory.getIndex()
+            changeMemory.setTitle( "\(i)↓", for: UIControl.State.normal)
+            self.tableView.reloadData()
+            
+            
+            
+            print("memory result"+brain.queueMemory.getResultAtIndex())
+        }
+        
+        
+        
+    }
+    
+    
+  
+    @IBAction func storeAllHistory(_ sender: UIButton) {
+       
+        guard let appDelegate =
+                UIApplication.shared.delegate as? AppDelegate else {
+                    return
+                }
+        brain.storeAllHistory(appDelegate: appDelegate)
         
        // memoryButton.setTitle(brain.queue.getFormularAtIndex(), for: UIControl.State.normal)
-        memoryButton.setTitle(formular, for: UIControl.State.normal)
-        let i = brain.queueMemory.getIndex()
-        changeMemory.setTitle( "\(i)↓", for: UIControl.State.normal)
+        //memoryButton.setTitle(brain.queue.getFormularAtIndex(), for: UIControl.State.normal)
+        
+        //let i = brain.queueMemory.getIndex()
+        //changeMemory.setTitle( "\(i)↓", for: UIControl.State.normal)
+        fromPersistentHistoryToMemoryQueue()
         self.tableView.reloadData()
-        
-        
-        
-        print("memory result"+brain.queueMemory.getResultAtIndex())
     }
     
     

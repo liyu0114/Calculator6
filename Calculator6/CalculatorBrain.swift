@@ -43,6 +43,7 @@ struct CalculatorBrain {
    // var isComputingEnd = false
     var temperaryFormular = ""
     struct Queue {
+        var howManyElement = 100
         private var long = 0
         private var index = 99
         private var formulars = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""]
@@ -51,7 +52,7 @@ struct CalculatorBrain {
       
         mutating func nextIndex() -> Int {
             if index == 0 {
-                index = 99
+                index = howManyElement - 1
             } else {
                 index = index - 1
             }
@@ -102,8 +103,8 @@ struct CalculatorBrain {
             //resultStrings.append(resultString)
             //resultStrings.remove(at: 0)
              */
-            for i in (0...99) {
-                if i != 99 {
+            for i in (0...(howManyElement-1)) {
+                if i != (howManyElement-1) {
                     formulars[i] = formulars[i+1]
                     resultStrings[i] = resultStrings[i+1]
                 } else {
@@ -111,15 +112,15 @@ struct CalculatorBrain {
                     resultStrings[i] = resultString
                 }
             }
-            index = 99
+            index = howManyElement - 1
         }
         
         mutating func clear() {
             long = 0
-            index = 99
+            index = howManyElement - 1
             //formulars = ["","",""]
             //resultStrings = ["","",""]
-            for i in (0...99 ){
+            for i in (0 ..< howManyElement ){
                 formulars[i] = ""
                 resultStrings[i] = ""
                 
@@ -651,6 +652,32 @@ struct CalculatorBrain {
         }
     }
     
+    mutating func storeHistory(appDelegate:AppDelegate) -> Bool {
+        let formular =  queue.getFormularAtIndex()
+        let result = queue.getResultAtIndex()
+        if (result.count>0 || formular.count>0 ) {
+            queueMemory.append( formular: formular, resultString: result  )
+            persistentHistorySave(appDelegate: appDelegate, formular: formular, result: result)
+            return true
+        } else {
+            return false
+        }
+        
+    }
+    
+    mutating func storeAllHistory(appDelegate:AppDelegate) {
+        for i in (0 ..< queue.howManyElement) {
+            let formular =  queue.getFormular(at: i)
+            let result = queue.getResult(at: i)
+            if (result.count>0 || formular.count>0 ) {
+                queueMemory.append( formular: formular, resultString: result  )
+              
+                persistentHistorySave(appDelegate: appDelegate, formular: formular, result: result)
+            }
+            
+        }
+        
+    }
     
 }
 
